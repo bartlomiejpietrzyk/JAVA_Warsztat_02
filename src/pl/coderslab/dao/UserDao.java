@@ -1,26 +1,29 @@
 package pl.coderslab.dao;
 
 import pl.coderslab.plain.User;
-import pl.coderslab.utlis.DatabaseUtils;
+import pl.coderslab.utils.DatabaseUtils;
 
 import java.sql.*;
 import java.util.Arrays;
 
 public class UserDao {
-       private static final String CREATE_USER_QUERY =
+    private static final String CREATE_USER_QUERY =
             "INSERT INTO user(name, email, password, user_group_id) VALUES (?, ?, ? ,?)";
+
     private static final String READ_USER_QUERY =
             "SELECT * FROM user where id = ?";
+
     private static final String UPDATE_USER_QUERY =
             "UPDATE user SET name = ?, email = ?, password = ?, user_group_id = ? where id = ?";
+
     private static final String DELETE_USER_QUERY =
             "DELETE FROM user WHERE id = ?";
+
     private static final String FIND_ALL_USERS_QUERY =
             "SELECT * FROM user";
+
     private static final String FIND_ALL_BY_GROUP_ID_QUERY =
             "SELECT * FROM user WHERE user_group_id = ?";
-
-
 
 
     public User create(User user) {
@@ -42,7 +45,6 @@ public class UserDao {
             return null;
         }
     }
-
 
 
     public User read(int userId) {

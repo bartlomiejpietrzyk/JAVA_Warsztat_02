@@ -1,9 +1,10 @@
 package pl.coderslab.dao;
 
 import pl.coderslab.plain.Exercise;
-import pl.coderslab.utlis.DatabaseUtils;
+import pl.coderslab.utils.DatabaseUtils;
 
 import java.sql.*;
+import java.util.Arrays;
 
 public class ExerciseDao {
     private static final String CREATE_EXERCISE_QUERY = "INSERT INTO exercise(title, description) VALUES (?, ?)";
@@ -13,7 +14,7 @@ public class ExerciseDao {
     private static final String FIND_ALL_EXERCISE_QUERY = "SELECT * FROM exercise";
 
     public Exercise create(Exercise exercise) {
-        try (Connection conn = DatabaseUtils.getConnection("java_warsztaty_2")) {
+        try (Connection conn = DatabaseUtils.getConnection("java_warsztat_2")) {
             PreparedStatement statement = conn.prepareStatement(CREATE_EXERCISE_QUERY, Statement.RETURN_GENERATED_KEYS);
             statement.setString(1, exercise.getTitle());
             statement.setString(2, exercise.getDescription());
@@ -30,7 +31,7 @@ public class ExerciseDao {
     }
 
     public Exercise read(int exerciseId) {
-        try (Connection conn = DatabaseUtils.getConnection("java_warsztaty_2")) {
+        try (Connection conn = DatabaseUtils.getConnection("java_warsztat_2")) {
             PreparedStatement statement = conn.prepareStatement(READ_EXERCISE_QUERY);
             statement.setInt(1, exerciseId);
             ResultSet resultSet = statement.executeQuery();
@@ -48,7 +49,7 @@ public class ExerciseDao {
     }
 
     public void update(Exercise exercise) {
-        try (Connection conn = DatabaseUtils.getConnection("java_warsztaty_2")) {
+        try (Connection conn = DatabaseUtils.getConnection("java_warsztat_2")) {
             PreparedStatement statement = conn.prepareStatement(UPDATE_EXERCISE_QUERY);
             statement.setInt(1, exercise.getId());
             statement.setString(2, exercise.getTitle());
@@ -69,5 +70,28 @@ public class ExerciseDao {
         }
     }
 
-    //dopisac findall
+    public Exercise[] addToArray(Exercise exercise, Exercise[] exercises) {
+        Exercise[] tmpExercises = Arrays.copyOf(exercises, exercises.length + 1);
+        tmpExercises[exercises.length] = exercise;
+        return tmpExercises;
+    }
+
+    public Exercise[] findAll() {
+        try (Connection conn = DatabaseUtils.getConnection("java_warsztat_2")) {
+            Exercise[] exercises = new Exercise[0];
+            PreparedStatement statement = conn.prepareStatement(FIND_ALL_EXERCISE_QUERY);
+            ResultSet resultSet = statement.executeQuery();
+            while (resultSet.next()) {
+                Exercise exercise = new Exercise();
+                exercise.setId(resultSet.getInt("id"));
+                exercise.setTitle(resultSet.getString("title"));
+                exercise.setDescription(resultSet.getString("description"));
+                exercises = addToArray(exercise, exercises);
+            }
+            return exercises;
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
 }
