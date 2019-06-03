@@ -30,48 +30,8 @@ public class Solution extends User {
         this.solutionDescription = solutionDescription;
     }
 
-    public Solution(Date created, Date updated, int userId, int solutionId, int exerciseId, String solutionDescription) {
-        this.created = created;
-        this.updated = updated;
-        this.userId = userId;
-        this.solutionId = solutionId;
-        this.exerciseId = exerciseId;
-        this.solutionDescription = solutionDescription;
-    }
-
-    public Solution(int id, int userGroupId, Date created, Date updated, int userId, int solutionId, int exerciseId, String solutionDescription) {
-        super(id, userGroupId);
-        this.created = created;
-        this.updated = updated;
-        this.userId = userId;
-        this.solutionId = solutionId;
-        this.exerciseId = exerciseId;
-        this.solutionDescription = solutionDescription;
-    }
-
-    public Solution(int id, String name, String email, int userGroupId, Date created, Date updated, int userId, int solutionId, int exerciseId, String solutionDescription) {
+    public Solution(int id, int userGroupId, int exerciseId, String name, String email, String solutionDescription) {
         super(id, name, email, userGroupId);
-        this.created = created;
-        this.updated = updated;
-        this.userId = userId;
-        this.solutionId = solutionId;
-        this.exerciseId = exerciseId;
-        this.solutionDescription = solutionDescription;
-    }
-
-    public Solution(String name, String email, String password, int userGroupId, Date created, Date updated, int userId, int solutionId, int exerciseId, String solutionDescription) {
-        super(name, email, password, userGroupId);
-        this.created = created;
-        this.updated = updated;
-        this.userId = userId;
-        this.solutionId = solutionId;
-        this.exerciseId = exerciseId;
-        this.solutionDescription = solutionDescription;
-    }
-
-    public Solution(int id, String name, String email, int userGroupId, int solutionId, int exerciseId, String solutionDescription) {
-        super(id, name, email, userGroupId);
-        this.solutionId = solutionId;
         this.exerciseId = exerciseId;
         this.solutionDescription = solutionDescription;
     }
