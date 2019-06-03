@@ -5,23 +5,34 @@ import org.mindrot.jbcrypt.BCrypt;
 public class User {
 
     private int id;
+    private int userGroupId;
     private String name;
     private String password; //zahashowane
     private String email; //unikatowy
-    private int userGroupId;
 
-    public User() {
+    public User() {}
+
+    public User(int id, int userGroupId) {
+        this.id = id;
+        this.userGroupId = userGroupId;
     }
 
-    public void hashPassword(String password) {
-        this.password = BCrypt.hashpw(password, BCrypt.gensalt());
+    public User(int id, String name, String email, int userGroupId) {
+        this.id = id;
+        this.userGroupId = userGroupId;
+        this.name = name;
+        this.email = email;
     }
 
     public User(String name, String email, String password, int userGroupId) {
         this.name = name;
-        this.hashPassword(password);
         this.email = email;
+        this.hashPassword(password);
         this.userGroupId = userGroupId;
+    }
+
+    public void hashPassword(String password) {
+        this.password = BCrypt.hashpw(password, BCrypt.gensalt());
     }
 
     public int getId() {
@@ -63,6 +74,8 @@ public class User {
                 ", name='" + name + '\'' +
                 ", password='" + password + '\'' +
                 ", email='" + email + '\'' +
+                ", user_group='" + userGroupId + '\'' +
+
                 '}';
     }
 

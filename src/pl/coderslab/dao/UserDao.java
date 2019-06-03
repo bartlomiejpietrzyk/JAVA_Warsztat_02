@@ -7,12 +7,7 @@ import java.sql.*;
 import java.util.Arrays;
 
 public class UserDao {
-    private final String URL =
-            "jdbc:mysql://localhost:3306/java_warsztat_2?useSSL=false&characterEncoding=utf8";
-    private final String USER = "root";
-    private final String PASSWORD = "coderslab";
-
-    private static final String CREATE_USER_QUERY =
+       private static final String CREATE_USER_QUERY =
             "INSERT INTO user(name, email, password, user_group_id) VALUES (?, ?, ? ,?)";
     private static final String READ_USER_QUERY =
             "SELECT * FROM user where id = ?";
@@ -22,6 +17,9 @@ public class UserDao {
             "DELETE FROM user WHERE id = ?";
     private static final String FIND_ALL_USERS_QUERY =
             "SELECT * FROM user";
+    private static final String FIND_ALL_BY_GROUP_ID_QUERY =
+            "SELECT * FROM user WHERE user_group_id = ?";
+
 
 
 
@@ -113,10 +111,30 @@ public class UserDao {
             }
             return users;
         } catch (SQLException e) {
-            e.printStackTrace(); return null;
-        }}
+            e.printStackTrace();
+            return null;
+        }
+    }
 
-
-
+    public User[] findAllByGroupId(int userGroupId) {
+        try (Connection conn = pl.coderslab.utils.DatabaseUtils.getConnection("java_warsztat_2")) {
+            User[] users = new User[0];
+            PreparedStatement statement = conn.prepareStatement(FIND_ALL_BY_GROUP_ID_QUERY);
+            ResultSet resultSet = statement.executeQuery();
+            while (resultSet.next()) {
+                User user = new User();
+                user.setId(resultSet.getInt("id"));
+                user.setName(resultSet.getString("name"));
+                user.setEmail(resultSet.getString("email"));
+                user.setPassword(resultSet.getString("password"));
+                user.setUserGroupId(resultSet.getInt("user_group_id"));
+                users = addToArray(user, users);
+            }
+            return users;
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
 
 }
