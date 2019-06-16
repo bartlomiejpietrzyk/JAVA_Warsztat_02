@@ -47,13 +47,30 @@ public class ExerciseDao {
         }
         return null;
     }
+public boolean created(int exerciseId) {
+        try (Connection conn = DatabaseUtils.getConnection("java_warsztat_2")) {
+            PreparedStatement statement = conn.prepareStatement(READ_EXERCISE_QUERY);
+            statement.setInt(1, exerciseId);
+            ResultSet resultSet = statement.executeQuery();
+            if (resultSet.next()) {
+                Exercise exercise = new Exercise();
+                exercise.setId((resultSet.getInt("id")));
+                exercise.setTitle(resultSet.getString("title"));
+                exercise.setDescription(resultSet.getString("description"));
+                return true;
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
 
     public void update(Exercise exercise) {
         try (Connection conn = DatabaseUtils.getConnection("java_warsztat_2")) {
             PreparedStatement statement = conn.prepareStatement(UPDATE_EXERCISE_QUERY);
-            statement.setInt(1, exercise.getId());
-            statement.setString(2, exercise.getTitle());
-            statement.setString(3, exercise.getDescription());
+            statement.setString(1, exercise.getTitle());
+            statement.setString(2, exercise.getDescription());
+            statement.setInt(3, exercise.getId());
             statement.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();

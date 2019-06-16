@@ -67,23 +67,16 @@ public class User {
         this.id = id;
     }
 
-    @Override
-    public String toString() {
-        return "User{" +
-                "id=" + id +
-                ", name='" + name + '\'' +
-                ", password='" + password + '\'' +
-                ", email='" + email + '\'' +
-                ", user_group='" + userGroupId + '\'' +
-
-                '}';
-    }
-
     public int getUserGroupId() {
         return userGroupId;
     }
 
     public void setUserGroupId(int userGroupId) {
         this.userGroupId = userGroupId;
+    }
+
+    @Override
+    public String toString() {
+        return String.format("['User' 'ID': '%s' ['Name: %s'] ['Password: %s']\n['User' ['E-mail': '%s'] ['UserGroup' 'ID': '%s']\n", id, name, password, email, userGroupId);
     }
 }

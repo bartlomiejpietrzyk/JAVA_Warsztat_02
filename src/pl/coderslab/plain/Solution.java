@@ -2,16 +2,6 @@ package pl.coderslab.plain;
 
 import java.sql.Date;
 
-/*
-Dodatkowe metody:
-Utwórz implementację dodatkowych metod realizujących zadania:
-pobranie wszystkich rozwiązań danego użytkownika (dopisz metodę do klasy
-Solution),
-findAllByUserId
-pobranie wszystkich rozwiązań danego zadania, posortowanych od najnowszego do najstarszego
-(dopisz metodę findAllByExerciseId do klasy Solution),
-pobranie wszystkich członków danej grupy (dopisz metodę findAllByGroupId do klasy User )
- */
 public class Solution extends User {
     private Date created;
     private Date updated;
@@ -21,8 +11,8 @@ public class Solution extends User {
     private String solutionDescription;
 
 
-
-    public Solution() {}
+    public Solution() {
+    }
 
     public Solution(int id, int userGroupId, int exerciseId, String solutionDescription) {
         super(id, userGroupId);
@@ -86,39 +76,8 @@ public class Solution extends User {
 
     @Override
     public String toString() {
-        return "Solution{" +
-                "created=" + created +
-                ", updated=" + updated +
-                ", userId=" + userId +
-                ", solutionId=" + solutionId +
-                ", exerciseId=" + exerciseId +
-                ", solutionDescription='" + solutionDescription + '\'' +
-                '}';
+        return String.format("['Solution' 'ID': '%s' ['Created: %s'] ['Updated: %s']\n['User' ['ID': '%s'] ['Solution' 'ID': '%s'] ['Exercise' 'ID': '%s']\n" +
+                "['Solution' 'Description': %s] ", solutionId, created, updated, userId, solutionId, exerciseId, solutionDescription);
     }
 
 }
-
-
-//zeby dodac solucje do usera:
-//Podac ID usera, podac ID cwiczenia, podac DESCRIPTION
-
-//    Solution(getId(), int userGroupId, int exerciseId, String description)
-// public Solution[] findAllByUserId(int userId) {//copy z userDAO = coś zmoenić
-//        try (Connection conn = DatabaseUtils.getConnection("java_warsztat_2")) {
-//            Solution[] solutions = new Solution[0];
-//            PreparedStatement statement = conn.prepareStatement(FIND_ALL_SOLUTION_BY_USER_ID_QUERY);
-//            ResultSet resultSet = statement.executeQuery();
-//            while (resultSet.next()) {
-//                Solution solution = new Solution();
-//                solution.setId(resultSet.getInt("id"));
-//                solution.setName(resultSet.getString("name"));
-//                solution.setEmail(resultSet.getString("email"));
-//                solution.setPassword(resultSet.getString("password"));
-//                solution.setUserGroupId(resultSet.getInt("user_group_id"));
-//                solutions = addToArray(solution, solutions);
-//            }
-//            return solutions;
-//        } catch (SQLException e) {
-//            e.printStackTrace();
-//            return null;
-//        }

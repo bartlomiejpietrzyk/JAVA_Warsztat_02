@@ -13,6 +13,12 @@ public class Exercise {
         this.description = description;
     }
 
+    public Exercise(int id, String title, String description) {
+        this.id = id;
+        this.title = title;
+        this.description = description;
+    }
+
     public int getId() {
         return id;
     }
@@ -39,10 +45,7 @@ public class Exercise {
 
     @Override
     public String toString() {
-        return "Exercise{" +
-                "id=" + id +
-                ", title='" + title + '\'' +
-                ", description='" + description + '\'' +
-                '}';
+        return String.format("['Exercise' 'ID': '%s' ['Title: %s'] ['Description: %s']\n", id, title, description);
+
     }
 }
