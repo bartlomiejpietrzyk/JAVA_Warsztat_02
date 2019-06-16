@@ -9,6 +9,7 @@ import java.util.Scanner;
 public class MenuExercise {
 
     public static void main() {
+        MenuMain menuMain = new MenuMain();
         MenuExercise menuExercise = new MenuExercise();
         Scanner scanner = new Scanner(System.in);
         ExerciseDao exercise = new ExerciseDao();
@@ -21,8 +22,10 @@ public class MenuExercise {
             System.out.println("**** 1. Add - dodanie zadania ****");
             System.out.println("**** 2. Edit - edycja zadania ****");
             System.out.println("**** 3. Delete - kasacja zadania *");
-            System.out.println("************* 4. Exit ************");
+            System.out.println("**** 4. Exit - Main menu         *");
+            System.out.println("* 5. Quit - Zakończenie programu *");
             System.out.println("**********************************");
+
             int choice = scanner.nextInt();
             if (choice == 1) {
                 menuExercise.add();
@@ -32,7 +35,9 @@ public class MenuExercise {
             } else if (choice == 3) {
                 menuExercise.delete();
             } else if (choice == 4) {
-                //TODO przeniesienie do maina
+                menuMain.main();
+            } else if (choice == 5) {
+                break;
             } else {
                 System.out.println("**********************************");
                 System.out.println("***** Podano błędną wartość! *****");

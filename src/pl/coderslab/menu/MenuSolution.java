@@ -8,17 +8,10 @@ import java.util.Arrays;
 import java.util.Scanner;
 
 public class MenuSolution {
-    /**
-     * Menu ma zawierać metody administracyjne
-     * Create
-     * Read
-     * Edit
-     * Update
-     * Delete     *
-     */
 
     public static void main() {
-        pl.coderslab.menu.MenuSolution menuSolution = new pl.coderslab.menu.MenuSolution();
+        MenuMain menuMain = new MenuMain();
+        MenuSolution menuSolution = new MenuSolution();
         Scanner scanner = new Scanner(System.in);
         SolutionDao solution = new SolutionDao();
         int choiceMenu = 4;
@@ -42,11 +35,10 @@ public class MenuSolution {
             } else if (choice == 3) {
                 break;
             } else if (choice == 4) {
-                //TODO przeniesienie do maina
+                menuMain.main();
             } else {
                 System.out.println("***************************************");
                 System.out.println("******** Podano błędną wartość! *******");
-
                 continue;
             }
         }
@@ -67,14 +59,7 @@ public class MenuSolution {
         if (id == 0) {
             MenuSolution.main();
         }
-        /**
-         *  OK jeśli wybrano add –
-         *  OK wyświetli listę wszystkich użytkowników,
-         *  OK odpyta o id,
-         * OK  następnie wyświetli listę wszystkich zadań
-         * i zapyta o id zadania,
-         * utworzy i zapisze obiekt typu Solution.
-         */
+
         System.out.println("**********************************");
         System.out.println("*********   Lista zadań:  ********");
         System.out.println("**********************************");
