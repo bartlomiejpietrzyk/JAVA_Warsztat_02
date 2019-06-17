@@ -66,6 +66,25 @@ public class UserDao {
         }
         return null;
     }
+ public boolean created(int userId) {
+        try (Connection conn = DatabaseUtils.getConnection("java_warsztat_2")) {
+            PreparedStatement statement = conn.prepareStatement(READ_USER_QUERY);
+            statement.setInt(1, userId);
+            ResultSet resultSet = statement.executeQuery();
+            if (resultSet.next()) {
+                User user = new User();
+                user.setId(resultSet.getInt("id"));
+                user.setName(resultSet.getString("name"));
+                user.setEmail(resultSet.getString("email"));
+                user.setPassword(resultSet.getString("password"));
+                user.setUserGroupId(resultSet.getInt("user_group_id"));
+                return true;
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
 
     public void update(User user) {
         try (Connection conn = DatabaseUtils.getConnection("java_warsztat_2")) {
