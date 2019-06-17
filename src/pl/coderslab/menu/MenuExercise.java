@@ -19,11 +19,10 @@ public class MenuExercise {
             System.out.println("**********************************");
             System.out.println("*******   Menu  Exercise:  *******");
             System.out.println("**********************************");
-            System.out.println("**** 1. Add - dodanie zadania ****");
-            System.out.println("**** 2. Edit - edycja zadania ****");
-            System.out.println("**** 3. Delete - kasacja zadania *");
-            System.out.println("**** 4. Exit - Main menu         *");
-            System.out.println("* 5. Quit - Zakończenie programu *");
+            System.out.println("**** 1. Add - dodaj zadanie    ***");
+            System.out.println("**** 2. Edit - edytuj zadanie  ***");
+            System.out.println("**** 3. Delete - usuń zadanie  ***");
+            System.out.println("**** 4. Quit -  Main menu      ***");
             System.out.println("**********************************");
 
             int choice = scanner.nextInt();
@@ -90,20 +89,29 @@ public class MenuExercise {
         Scanner scanner = new Scanner(System.in);
         Scanner scanner1 = new Scanner(System.in);
         Exercise exercise = new Exercise();
+        ExerciseDao exerciseDao = new ExerciseDao();
+        int id = 0;
+        do {
         System.out.println("**********************************");
         System.out.println("*******   Edycja zadania   *******");
         System.out.println("*******  Wpisz ID zadania: *******");
         System.out.println("**********************************");
         System.out.println("*********** 0 = Wróć *************");
         System.out.println("**********************************");
-
-        int id = scanner.nextInt();
+        id = scanner.nextInt();
         if (id == 0) {
             MenuExercise.main();
         }
-        ExerciseDao exerciseDao = new ExerciseDao();
-        System.out.println(exerciseDao.read(id));
-        scanner.nextLine();
+
+            System.out.println("**********************************");
+            System.out.println("*******   Exercise Error:  *******");
+            System.out.println("********  No Exercise ID  ********");
+            System.out.println("********  Write ID again  ********");
+            System.out.println("********  Press 0 to back ********");
+            System.out.println("**********************************");
+            scanner.nextLine();
+            continue;
+        } while (exerciseDao.read(id) != null);
         System.out.println("**********************************");
         System.out.println("****** Edytuj tytuł zadania: *****");
         System.out.println("**********************************");
@@ -132,7 +140,7 @@ public class MenuExercise {
             if (exerciseDao.read(id) != null) {
                 System.out.println(exerciseDao.read(id));
                 System.out.println("***************************************************************");
-                 System.out.printf("********** Czy na pewno chcesz usunąć zadanie o ID: %s ********\n", id);
+                System.out.printf("********** Czy na pewno chcesz usunąć zadanie o ID: %s ********\n", id);
                 System.out.println("********************** 1 = Tak ********************************");
                 System.out.println("********************** 2 = Nie ********************************");
                 System.out.println("***************************************************************");
@@ -170,13 +178,16 @@ public class MenuExercise {
                 System.out.println("********  Write ID again  ********");
                 System.out.println("********  Press 0 to back ********");
                 System.out.println("**********************************");
-                continue;
+                break;
             }
             if (id == 0) {
                 MenuExercise.main();
-            } else {
-                continue;
+
             }
+            //TODO @Menu, kazde do przerobienia ^ else ktory nie pozwala wrocic na start
+            // mozna napisac metode ktora bedzie wyciagala z bazy wszystkie id -> iterowala po nich
+            // i sprawdzala zasieg.
         }
     }
 }
+
