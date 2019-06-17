@@ -23,8 +23,7 @@ public class MenuSolution {
             System.out.println("*** 1. Add - przypisz rozwiązanie  ****");
             System.out.println("***          do użytkownika        ****");
             System.out.println("*** 2. View - przegląj rozwiązaia  ****");
-            System.out.println("*** 3. Back to previous screen     ****");
-            System.out.println("*** 4. Quit - Zakończenie programu ****");
+            System.out.println("*** 3. Quit - Zakończenie programu ****");
             System.out.println("***************************************");
             int choice = scanner.nextInt();
             if (choice == 1) {
@@ -33,8 +32,6 @@ public class MenuSolution {
                 System.out.println(Arrays.toString(solution.findAll()));
                 menuSolution.view();
             } else if (choice == 3) {
-                break;
-            } else if (choice == 4) {
                 menuMain.main();
             } else {
                 System.out.println("***************************************");
