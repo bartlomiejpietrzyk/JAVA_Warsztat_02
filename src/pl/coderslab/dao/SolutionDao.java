@@ -29,13 +29,13 @@ public class SolutionDao {
         try (Connection conn = DatabaseUtils.getConnection("java_warsztat_2")) {
             PreparedStatement statement =
                     conn.prepareStatement(CREATE_SOLUTION_QUERY, Statement.RETURN_GENERATED_KEYS);
-            statement.setInt(1, solution.getId());
+            statement.setInt(1, solution.getUserId());
             statement.setInt(2, solution.getExerciseId());
             statement.setString(3, solution.getSolutionDescription());
             statement.executeUpdate();
             ResultSet resultSet = statement.getGeneratedKeys();
             if (resultSet.next()) {
-                solution.setId(resultSet.getInt(1));
+                solution.setSolutionId((resultSet.getInt(1)));
             }
             return solution;
         } catch (SQLException e) {
@@ -51,7 +51,7 @@ public class SolutionDao {
             ResultSet resultSet = statement.executeQuery();
             if (resultSet.next()) {
                 Solution solution = new Solution();
-                solution.setId(resultSet.getInt("id"));
+                solution.setSolutionId(resultSet.getInt("id"));
                 solution.setUserId(resultSet.getInt("user_id"));
                 solution.setExerciseId(resultSet.getInt("exercise_id"));
                 solution.setCreated(resultSet.getDate("created"));
@@ -64,14 +64,14 @@ public class SolutionDao {
         }
         return null;
     }
- public boolean created(int solutionId) {
+ public boolean exist(int solutionId) {
         try (Connection conn = DatabaseUtils.getConnection("java_warsztat_2")) {
             PreparedStatement statement = conn.prepareStatement(READ_SOLUTION_QUERY);
             statement.setInt(1, solutionId);
             ResultSet resultSet = statement.executeQuery();
             if (resultSet.next()) {
                 Solution solution = new Solution();
-                solution.setId(resultSet.getInt("id"));
+                solution.setSolutionId(resultSet.getInt("id"));
                 solution.setUserId(resultSet.getInt("user_id"));
                 solution.setExerciseId(resultSet.getInt("exercise_id"));
                 solution.setCreated(resultSet.getDate("created"));
@@ -88,7 +88,7 @@ public class SolutionDao {
     public void update(Solution solution) {
         try (Connection conn = DatabaseUtils.getConnection("java_warsztat_2")) {
             PreparedStatement statement = conn.prepareStatement(UPDATE_SOLUTION_QUERY);
-            statement.setInt(1, solution.getId());
+            statement.setInt(1, solution.getUserId());
             statement.setInt(2, solution.getExerciseId());
             statement.setString(3, solution.getSolutionDescription());
             statement.executeUpdate();
@@ -120,7 +120,7 @@ public class SolutionDao {
             ResultSet resultSet = statement.executeQuery();
             while (resultSet.next()) {
                 Solution solution = new Solution();
-                solution.setId(resultSet.getInt("id"));
+                solution.setSolutionId(resultSet.getInt("id"));
                 solution.setCreated(resultSet.getDate("created"));
                 solution.setUpdated(resultSet.getDate("updated"));
                 solution.setExerciseId(resultSet.getInt("exercise_id"));
@@ -141,7 +141,7 @@ public class SolutionDao {
             ResultSet resultSet = statement.executeQuery();
             while (resultSet.next()) {
                 Solution solution = new Solution();
-                solution.setId(resultSet.getInt("id"));
+                solution.setSolutionId(resultSet.getInt("id"));
                 solution.setCreated(resultSet.getDate("created"));
                 solution.setUpdated(resultSet.getDate("updated"));
                 solution.setExerciseId(resultSet.getInt("exercise_id"));
@@ -161,7 +161,7 @@ public class SolutionDao {
             ResultSet resultSet = statement.executeQuery();
             while (resultSet.next()) {
                 Solution solution = new Solution();
-                solution.setId(resultSet.getInt("id"));
+                solution.setSolutionId(resultSet.getInt("id"));
                 solution.setCreated(resultSet.getDate("created"));
                 solution.setUpdated(resultSet.getDate("updated"));
                 solution.setExerciseId(resultSet.getInt("exercise_id"));

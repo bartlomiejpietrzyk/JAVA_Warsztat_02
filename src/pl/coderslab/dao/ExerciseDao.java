@@ -15,7 +15,8 @@ public class ExerciseDao {
 
     public Exercise create(Exercise exercise) {
         try (Connection conn = DatabaseUtils.getConnection("java_warsztat_2")) {
-            PreparedStatement statement = conn.prepareStatement(CREATE_EXERCISE_QUERY, Statement.RETURN_GENERATED_KEYS);
+            PreparedStatement statement =
+                    conn.prepareStatement(CREATE_EXERCISE_QUERY, Statement.RETURN_GENERATED_KEYS);
             statement.setString(1, exercise.getTitle());
             statement.setString(2, exercise.getDescription());
             statement.executeUpdate();
@@ -47,7 +48,7 @@ public class ExerciseDao {
         }
         return null;
     }
-public boolean created(int exerciseId) {
+public boolean exist(int exerciseId) {
         try (Connection conn = DatabaseUtils.getConnection("java_warsztat_2")) {
             PreparedStatement statement = conn.prepareStatement(READ_EXERCISE_QUERY);
             statement.setInt(1, exerciseId);

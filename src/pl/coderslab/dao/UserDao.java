@@ -66,7 +66,7 @@ public class UserDao {
         }
         return null;
     }
- public boolean created(int userId) {
+ public boolean exist(int userId) {
         try (Connection conn = DatabaseUtils.getConnection("java_warsztat_2")) {
             PreparedStatement statement = conn.prepareStatement(READ_USER_QUERY);
             statement.setInt(1, userId);
