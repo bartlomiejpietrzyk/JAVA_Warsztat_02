@@ -138,7 +138,7 @@ public class MenuUser {
         UserDao userDao = new UserDao();
         MenuText menuText = new MenuText();
         Scanner scanner = new Scanner(System.in);
-        menuText.userDeleteId();
+        System.out.println(menuText.userDeleteId());
         while (scanner.hasNext()) {
             int id = scanner.nextInt();
             if (userDao.read(id) != null) {
