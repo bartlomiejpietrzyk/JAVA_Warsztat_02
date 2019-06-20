@@ -4,189 +4,153 @@ import pl.coderslab.dao.ExerciseDao;
 import pl.coderslab.plain.Exercise;
 
 import java.util.Arrays;
+import java.util.InputMismatchException;
 import java.util.Scanner;
 
 public class MenuExercise {
 
     public static void main() {
-        MenuMain menuMain = new MenuMain();
+        int upperMenu = 3;
+        int lowerMenu = 1;
+        int properChoose = 0;
+        AdminPanel adminPanel = new AdminPanel();
+        MenuText menuText = new MenuText();
         MenuExercise menuExercise = new MenuExercise();
-        Scanner scanner = new Scanner(System.in);
-        ExerciseDao exercise = new ExerciseDao();
-        int choiceMenu = 4;
+        do {
+            try {
+                System.out.println(menuText.exerciseWelcomeMenu());
+                Scanner scanner = new Scanner(System.in);
+                while (!scanner.hasNextInt()) {
+                    scanner.nextLine();
+                    System.err.println(menuText.wrongValue());
+                    System.out.println(menuText.mainWelcomeMenu());
+                    continue;
+                }
+                properChoose = scanner.nextInt();
+                if (properChoose < lowerMenu || properChoose > upperMenu) {
+                    System.err.println(menuText.wrongMenu());
+                    continue;
+                }
+                switch (properChoose) {
+                    case 1:
+                        menuExercise.add();
+                        break;
+                    case 2:
+                        menuExercise.edit();
+                        break;
+                    case 3:
+                        menuExercise.delete();
+                        break;
+                    case 4:
+                        adminPanel.main();
+                    default:
+                        System.err.println(menuText.wrongMenu());
+                        break;
+                }
 
-        while (choiceMenu >= 1 || choiceMenu <= 4) {
-            System.out.println("**********************************");
-            System.out.println("*******   Menu  Exercise:  *******");
-            System.out.println("**********************************");
-            System.out.println("**** 1. Add - dodaj zadanie    ***");
-            System.out.println("**** 2. Edit - edytuj zadanie  ***");
-            System.out.println("**** 3. Delete - usuń zadanie  ***");
-            System.out.println("**** 4. Quit -  Main menu      ***");
-            System.out.println("**********************************");
-
-            int choice = scanner.nextInt();
-            if (choice == 1) {
-                menuExercise.add();
-            } else if (choice == 2) {
-                System.out.println(Arrays.toString(exercise.findAll()));
-                menuExercise.edit();
-            } else if (choice == 3) {
-                menuExercise.delete();
-            } else if (choice == 4) {
-                menuMain.main();
-            } else if (choice == 5) {
-                break;
-            } else {
-                System.out.println("**********************************");
-                System.out.println("***** Podano błędną wartość! *****");
-
+            } catch (InputMismatchException ime) {
+                System.err.println(menuText.wrongValue());
                 continue;
             }
-        }
+        } while (properChoose > lowerMenu || properChoose < upperMenu);
     }
 
     public Exercise add() {
         ExerciseDao exerciseDao = new ExerciseDao();
+        MenuText menuText = new MenuText();
         Scanner scanner = new Scanner(System.in);
-        String title = "";
-        String description = "";
-        System.out.println("**********************************");
-        System.out.println("******* Tworzenie zadania: *******");
-        System.out.println("**********************************");
-        System.out.println("*********** 0 = Wróć *************");
-        System.out.println("****** Wpisz tytuł zadania: ******");
-        System.out.println("**********************************");
-        title = scanner.nextLine();
+        System.out.println(menuText.exerciseCreateTitle());
+        String title = scanner.nextLine();
         if (title.equals("0")) {
             MenuExercise.main();
         }
-        System.out.println("**********************************");
-        System.out.println("*****  Wpisz opis zadania:  ******");
-        System.out.println("**********************************");
-        description = scanner.nextLine();
+        System.out.println(menuText.exerciseCreateDesc());
+        String description = scanner.nextLine();
         if (description.equals("0")) {
             MenuExercise.main();
         }
         Exercise exercise = new Exercise(title, description);
         exerciseDao.create(exercise);
-        if (exerciseDao.created(exercise.getId())) {
-            System.out.println("**********************************");
-            System.out.println("*****   Exercise  create:   ******");
-            System.out.println("*******      Success     *********");
-            System.out.println("**********************************");
+        if (exerciseDao.exist(exercise.getId())) {
+            System.out.println(menuText.exerciseCreateSucc());
             return exercise;
         } else {
-            System.out.println("**********************************");
-            System.out.println("*****   Exercise  create:   ******");
-            System.out.println("*******      Failed      *********");
-            System.out.println("**********************************");
+            System.err.println(menuText.exerciseCreateFail());
             return null;
         }
     }
 
     public void edit() {
-        Scanner scanner = new Scanner(System.in);
-        Scanner scanner1 = new Scanner(System.in);
         Exercise exercise = new Exercise();
         ExerciseDao exerciseDao = new ExerciseDao();
+        MenuText menuText = new MenuText();
+        Scanner scanner = new Scanner(System.in);
         int id = 0;
         do {
-        System.out.println("**********************************");
-        System.out.println("*******   Edycja zadania   *******");
-        System.out.println("*******  Wpisz ID zadania: *******");
-        System.out.println("**********************************");
-        System.out.println("*********** 0 = Wróć *************");
-        System.out.println("**********************************");
-        id = scanner.nextInt();
-        if (id == 0) {
-            MenuExercise.main();
-        }
+            System.out.println(Arrays.toString(exerciseDao.findAll()));
+            System.out.println(menuText.exerciseEdit());
+            while (!scanner.hasNextInt()) {
+                scanner.nextLine();
+                System.err.println(menuText.wrongValue());
+                System.out.println(menuText.exerciseEdit());
 
-            System.out.println("**********************************");
-            System.out.println("*******   Exercise Error:  *******");
-            System.out.println("********  No Exercise ID  ********");
-            System.out.println("********  Write ID again  ********");
-            System.out.println("********  Press 0 to back ********");
-            System.out.println("**********************************");
+            }
+            id = scanner.nextInt();
+            if (id == 0) {
+                MenuExercise.main();
+            } else if (!exerciseDao.exist(id)) {
+                System.err.println(menuText.exerciseNoIdError());
+                break;
+            }
             scanner.nextLine();
-            continue;
-        } while (exerciseDao.read(id) != null);
-        System.out.println("**********************************");
-        System.out.println("****** Edytuj tytuł zadania: *****");
-        System.out.println("**********************************");
-        String title = scanner.nextLine();
-        System.out.println("**********************************");
-        System.out.println("****** Edytuj opis zadania: ****** ");
-        System.out.println("**********************************");
-        String description = scanner.nextLine();
-        exercise.setId(id);
-        exercise.setTitle(title);
-        exercise.setDescription(description);
-        exerciseDao.update(exercise);
+            System.out.println(menuText.exerciseEditTitle());
+            String title = scanner.nextLine();
+            System.out.println(menuText.exerciseEditDesc());
+            String description = scanner.nextLine();
+            exercise.setId(id);
+            exercise.setTitle(title);
+            exercise.setDescription(description);
+            exerciseDao.update(exercise);
+        } while (!scanner.hasNextLine());
     }
 
     public void delete() {
         ExerciseDao exerciseDao = new ExerciseDao();
         Scanner scanner = new Scanner(System.in);
-        System.out.println("*********************************");
-        System.out.println("*******  Usuwanie zadania *******");
-        System.out.println("* Podaj ID zadania do usunięcia *");
-        System.out.println("*********************************");
-        System.out.println("*********** 0 = Wróć *************");
-        System.out.println("**********************************");
+        MenuText menuText = new MenuText();
+        System.out.println(Arrays.toString(exerciseDao.findAll()));
+        System.out.println(menuText.exerciseDeleteId());
         while (scanner.hasNext()) {
             int id = scanner.nextInt();
             if (exerciseDao.read(id) != null) {
                 System.out.println(exerciseDao.read(id));
-                System.out.println("***************************************************************");
-                System.out.printf("********** Czy na pewno chcesz usunąć zadanie o ID: %s ********\n", id);
-                System.out.println("********************** 1 = Tak ********************************");
-                System.out.println("********************** 2 = Nie ********************************");
-                System.out.println("***************************************************************");
+                System.err.println(menuText.exerciseDeleteConfirm());
                 int decision = scanner.nextInt();
                 while (scanner.hasNextLine()) {
                     if (decision == 1) {
                         exerciseDao.delete(id);
                         if (exerciseDao.read(id) == null) {
-                            System.out.println("**********************************");
-                            System.out.println("*****   Exercise  delete:   ******");
-                            System.out.println("*******      Success     *********");
-                            System.out.println("**********************************");
+                            System.err.println(menuText.exerciseDeleteConfirm());
                             MenuExercise.main();
                         } else {
-                            System.out.println("**********************************");
-                            System.out.println("*****   Exercise  delete:   ******");
-                            System.out.println("*******      Failed      *********");
-                            System.out.println("**********************************");
+                            System.err.println(menuText.exerciseDeleteFail());
                             MenuExercise.main();
                         }
                     } else if (decision == 2) {
                         MenuExercise.main();
                     } else {
-                        System.out.println("**********************************");
-                        System.out.println("*******    Wrong Value:   ********");
-                        System.out.println("********     Insert      *********");
-                        System.out.println("**********************************");
+                        System.err.println(menuText.wrongValue());
                     }
                 }
 
             } else {
-                System.out.println("**********************************");
-                System.out.println("*******   Exercise Error:  *******");
-                System.out.println("********  No Exercise ID  ********");
-                System.out.println("********  Write ID again  ********");
-                System.out.println("********  Press 0 to back ********");
-                System.out.println("**********************************");
+                System.err.println(menuText.exerciseNoIdError());
                 break;
             }
             if (id == 0) {
                 MenuExercise.main();
 
             }
-            //TODO @Menu, kazde do przerobienia ^ else ktory nie pozwala wrocic na start
-            // mozna napisac metode ktora bedzie wyciagala z bazy wszystkie id -> iterowala po nich
-            // i sprawdzala zasieg.
         }
     }
 }
