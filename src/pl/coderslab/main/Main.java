@@ -41,7 +41,7 @@ public class Main {
                         } else if (userId == 0) {
                             break;
                         } else {
-                            System.out.println(menuText.userNoIdError());
+                            System.err.println(menuText.userNoIdError());
                             break;
                         }
                     case 2:
@@ -52,6 +52,7 @@ public class Main {
                         int quit = scanner.nextInt();
                         if (quit == 1) {
                             System.err.println(menuText.systemExit());
+                            System.exit(0);
                             return;
                         } else if (quit == 2) {
                             break;
@@ -68,49 +69,3 @@ public class Main {
         } while (properChoose > lowerMenu || properChoose < upperMenu);
     }
 }
-
-//    public static class GetMenuNumber {
-//        private boolean myResult;
-//        private int upperMenu;
-//        private int lowerMenu;
-//        private int properChoose;
-//        private MenuText menuText;
-//        private Scanner scanner;
-//
-//        public GetMenuNumber(int upperMenu, int lowerMenu, int properChoose, MenuText menuText) {
-//            this.upperMenu = upperMenu;
-//            this.lowerMenu = lowerMenu;
-//            this.properChoose = properChoose;
-//            this.menuText = menuText;
-//        }
-//
-//        boolean is() {
-//            return myResult;
-//        }
-//
-//        public int getProperChoose() {
-//            return properChoose;
-//        }
-//
-//        public Scanner getScanner() {
-//            return scanner;
-//        }
-//
-//        public GetMenuNumber invoke() {
-//            scanner = new Scanner(System.in);
-//            menuText.mainWelcomeMenu();
-//            while (!scanner.hasNextInt()) {
-//                scanner.nextLine();
-//                menuText.wrongValue();
-//                continue;
-//            }
-//            properChoose = scanner.nextInt();
-//            if (properChoose < lowerMenu || properChoose > upperMenu) {
-//                menuText.wrongMenu();
-//                myResult = true;
-//                return this;
-//            }
-//            myResult = false;
-//            return this;
-//        }
-//    }
