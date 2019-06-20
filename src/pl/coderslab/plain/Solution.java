@@ -14,8 +14,15 @@ public class Solution extends User {
     public Solution() {
     }
 
-    public Solution(int id, int userGroupId, int exerciseId, String solutionDescription) {
+    public Solution(int id, int userGroupId, int solutionId, int exerciseId, String solutionDescription) {
         super(id, userGroupId);
+        this.solutionId = solutionId;
+        this.exerciseId = exerciseId;
+        this.solutionDescription = solutionDescription;
+    }
+
+    public Solution(int id, int exerciseId, String solutionDescription) {
+        super(id);
         this.exerciseId = exerciseId;
         this.solutionDescription = solutionDescription;
     }
@@ -30,8 +37,8 @@ public class Solution extends User {
         return userId;
     }
 
-    public void setUserId(int userId) {
-        this.userId = userId;
+    public void setUserId(int id) {
+        this.userId = id;
     }
 
     public int getSolutionId() {

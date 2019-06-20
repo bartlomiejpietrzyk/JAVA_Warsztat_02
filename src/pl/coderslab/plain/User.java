@@ -7,10 +7,16 @@ public class User {
     private int id;
     private int userGroupId;
     private String name;
-    private String password; //zahashowane
-    private String email; //unikatowy
+    private String password;
+    private String email;
 
-    public User() {}
+    public User() {
+
+    }
+
+    public User(int id) {
+        this.id = id;
+    }
 
     public User(int id, int userGroupId) {
         this.id = id;

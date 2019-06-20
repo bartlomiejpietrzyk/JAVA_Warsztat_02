@@ -1,6 +1,7 @@
 package pl.coderslab.dao;
 
 import pl.coderslab.plain.Solution;
+import pl.coderslab.plain.User;
 import pl.coderslab.utils.DatabaseUtils;
 
 import java.sql.*;
@@ -156,6 +157,8 @@ public class SolutionDao {
     }
  public Solution[] findAllByUserId(int userId) {
         try (Connection conn = DatabaseUtils.getConnection("java_warsztat_2")) {
+            UserDao userDao =new UserDao();
+            User user = userDao.read(userId);
             Solution[] solutions = new Solution[0];
             PreparedStatement statement = conn.prepareStatement(FIND_ALL_SOLUTION_BY_USER_ID_QUERY);
             ResultSet resultSet = statement.executeQuery();
@@ -165,7 +168,7 @@ public class SolutionDao {
                 solution.setCreated(resultSet.getDate("created"));
                 solution.setUpdated(resultSet.getDate("updated"));
                 solution.setExerciseId(resultSet.getInt("exercise_id"));
-                solution.setUserId(resultSet.getInt("user_id"));
+                user.setId(resultSet.getInt("id"));
                 solutions = addToArray(solution, solutions);
             }
             return solutions;
