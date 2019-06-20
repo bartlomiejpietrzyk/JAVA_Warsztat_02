@@ -6,6 +6,7 @@ import pl.coderslab.dao.SolutionDao;
 import pl.coderslab.main.Main;
 import pl.coderslab.plain.Solution;
 
+import java.util.Arrays;
 import java.util.InputMismatchException;
 import java.util.Scanner;
 
@@ -16,7 +17,6 @@ public class UserPanel {
         int properChoose = 0;
         UserPanel userPanel = new UserPanel();
         SolutionDao solutionDao = new SolutionDao();
-        AdminPanel adminPanel = new AdminPanel();
         MenuText menuText = new MenuText();
         do {
             try {
@@ -44,7 +44,7 @@ public class UserPanel {
                         Main.main(null);
                     default:
                         System.err.println(menuText.wrongMenu());
-                        break;
+                        continue;
                 }
             } catch (MySQLIntegrityConstraintViolationException e) {
                 e.printStackTrace();
@@ -65,14 +65,15 @@ public class UserPanel {
         Solution solution = new Solution();
         int exerciseId = 0;
         do {
-            menuText.solutionGetExerciseId();
+            System.out.println(Arrays.toString(exerciseDao.findAll()));
+            System.out.println(menuText.solutionGetExerciseId());
             exerciseId = scanner.nextInt();
             if (exerciseId == 0) {
                 userPanel.main(userId);
             }
             scanner.nextLine();
             if (exerciseDao.exist(exerciseId)) {
-                menuText.userPanelGetSolutionDesc();
+                System.out.println(menuText.userPanelGetSolutionDesc());
                 String description = scanner.nextLine();
                 solution.setId(userId);
                 solution.setExerciseId(exerciseId);
@@ -80,14 +81,14 @@ public class UserPanel {
                 solutionDao.create(solution);
                 int id = solution.getId();
                 if (solutionDao.exist(id)) {
-                    menuText.userPanelSolutionSucc();
+                    System.out.println(menuText.userPanelSolutionSucc());
                     return solution;
                 } else {
-                    menuText.userPanelSolutionFail();
+                    System.err.println(menuText.userPanelSolutionFail());
                     return null;
                 }
             } else {
-                menuText.userPanelExerciseError();
+                System.err.println(menuText.userPanelExerciseError());
                 continue;
             }
         } while (exerciseId == 0);
