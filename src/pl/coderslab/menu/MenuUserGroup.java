@@ -43,10 +43,10 @@ public class MenuUserGroup {
                     case 3:
                         System.out.println(Arrays.toString(userGroup.findAll()));
                         menuUserGroup.delete();
+                        break;
                     case 4:
                         adminPanel.main();
                         break;
-
                     default:
                         System.err.println(menuText.wrongMenu());
                         break;
