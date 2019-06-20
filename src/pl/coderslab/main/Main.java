@@ -17,55 +17,100 @@ public class Main {
         AdminPanel adminPanel = new AdminPanel();
         UserPanel userPanel = new UserPanel();
         UserDao userDao = new UserDao();
-
         do {
             try {
+                System.out.println(menuText.mainWelcomeMenu());
                 Scanner scanner = new Scanner(System.in);
-                menuText.mainWelcomeMenu();
                 while (!scanner.hasNextInt()) {
                     scanner.nextLine();
-                    menuText.wrongValue();
+                    System.err.println(menuText.wrongValue());
+                    System.out.println(menuText.mainWelcomeMenu());
                     continue;
                 }
                 properChoose = scanner.nextInt();
                 if (properChoose < lowerMenu || properChoose > upperMenu) {
-                    menuText.wrongMenu();
+                    System.err.println(menuText.wrongMenu());
                     continue;
                 }
                 switch (properChoose) {
                     case 1:
-                        menuText.getUserId();
+                        System.out.println(menuText.getUserId());
                         int userId = scanner.nextInt();
                         if (userDao.exist((userId))) {
                             userPanel.main(userId);
                         } else if (userId == 0) {
                             break;
                         } else {
-                            menuText.userNoIdError();
+                            System.out.println(menuText.userNoIdError());
                             break;
                         }
                     case 2:
                         adminPanel.main();
                         break;
                     case 3:
-                        menuText.systemExitConfirm();
+                        System.err.println(menuText.systemExitConfirm());
                         int quit = scanner.nextInt();
                         if (quit == 1) {
-                            menuText.systemExit();
+                            System.err.println(menuText.systemExit());
                             return;
                         } else if (quit == 2) {
                             break;
                         }
                     default:
-                        menuText.wrongMenu();
+                        System.err.println(menuText.wrongMenu());
                         break;
                 }
 
             } catch (InputMismatchException ime) {
-                menuText.wrongValue();
+                System.err.println(menuText.wrongValue());
                 continue;
             }
-        }
-        while (properChoose > lowerMenu || properChoose < upperMenu);
+        } while (properChoose > lowerMenu || properChoose < upperMenu);
     }
 }
+
+//    public static class GetMenuNumber {
+//        private boolean myResult;
+//        private int upperMenu;
+//        private int lowerMenu;
+//        private int properChoose;
+//        private MenuText menuText;
+//        private Scanner scanner;
+//
+//        public GetMenuNumber(int upperMenu, int lowerMenu, int properChoose, MenuText menuText) {
+//            this.upperMenu = upperMenu;
+//            this.lowerMenu = lowerMenu;
+//            this.properChoose = properChoose;
+//            this.menuText = menuText;
+//        }
+//
+//        boolean is() {
+//            return myResult;
+//        }
+//
+//        public int getProperChoose() {
+//            return properChoose;
+//        }
+//
+//        public Scanner getScanner() {
+//            return scanner;
+//        }
+//
+//        public GetMenuNumber invoke() {
+//            scanner = new Scanner(System.in);
+//            menuText.mainWelcomeMenu();
+//            while (!scanner.hasNextInt()) {
+//                scanner.nextLine();
+//                menuText.wrongValue();
+//                continue;
+//            }
+//            properChoose = scanner.nextInt();
+//            if (properChoose < lowerMenu || properChoose > upperMenu) {
+//                menuText.wrongMenu();
+//                myResult = true;
+//                return this;
+//            }
+//            myResult = false;
+//            return this;
+//        }
+//    }
