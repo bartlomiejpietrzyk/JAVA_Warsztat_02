@@ -83,8 +83,7 @@ public class Solution extends User {
 
     @Override
     public String toString() {
-        return String.format("['Solution' 'ID': '%s' ['Created: %s'] ['Updated: %s']\n['User' ['ID': '%s'] ['Solution' 'ID': '%s'] ['Exercise' 'ID': '%s']\n" +
-                "['Solution' 'Description': %s] ", solutionId, created, updated, userId, solutionId, exerciseId, solutionDescription);
+        return String.format("['Solution' 'ID': '%s'] ['Exercise' 'ID': '%s'] ['User ID': '%s'] ['Created: %s'] ['Updated: %s']\n['Solution' 'Description': %s']\n", solutionId, exerciseId, userId, created, updated, solutionDescription);
     }
 
 }

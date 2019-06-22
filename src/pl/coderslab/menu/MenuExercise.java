@@ -10,7 +10,7 @@ import java.util.Scanner;
 public class MenuExercise {
 
     public static void main() {
-        int upperMenu = 3;
+        int upperMenu = 4;
         int lowerMenu = 1;
         int properChoose = 0;
         AdminPanel adminPanel = new AdminPanel();

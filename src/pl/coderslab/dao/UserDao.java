@@ -66,7 +66,24 @@ public class UserDao {
         }
         return null;
     }
- public boolean exist(int userId) {
+
+    public boolean emailExist(String email) {
+        try (Connection conn = DatabaseUtils.getConnection("java_warsztat_2")) {
+            PreparedStatement statement = conn.prepareStatement(READ_USER_QUERY);
+            statement.setString(1, email);
+            ResultSet resultSet = statement.executeQuery();
+            if (resultSet.next()) {
+                User user = new User();
+                user.setEmail(resultSet.getString("email"));
+                return true;
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
+
+    public boolean exist(int userId) {
         try (Connection conn = DatabaseUtils.getConnection("java_warsztat_2")) {
             PreparedStatement statement = conn.prepareStatement(READ_USER_QUERY);
             statement.setInt(1, userId);

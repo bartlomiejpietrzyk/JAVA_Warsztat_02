@@ -19,7 +19,8 @@ public class MenuSolution {
         AdminPanel adminPanel = new AdminPanel();
         MenuText menuText = new MenuText();
         MenuSolution menuSolution = new MenuSolution();
-        SolutionDao solution = new SolutionDao();
+        SolutionDao solutionDao = new SolutionDao();
+        UserDao userDao = new UserDao();
         do {
             try {
                 System.out.println(menuText.solutionWelcomeMenu());
@@ -44,7 +45,15 @@ public class MenuSolution {
                         }
                         break;
                     case 2:
-                        menuSolution.view();
+                        //todo
+                        System.out.println(Arrays.toString(userDao.findAll()));
+                        System.out.println(menuText.solutionView());
+                        int userId = scanner.nextInt();
+                        if (userId == 0) {
+                            MenuSolution.main();
+                        } else if (userDao.exist(userId)) {
+                            System.out.println(Arrays.toString(solutionDao.findAllByUserId(userId)));
+                        }
                         break;
                     case 3:
                         adminPanel.main();
@@ -52,38 +61,44 @@ public class MenuSolution {
                         System.err.println(menuText.wrongMenu());
                         break;
                 }
-
+                scanner.nextInt();
             } catch (InputMismatchException ime) {
                 System.err.println(menuText.wrongValue());
                 continue;
             }
+
         } while (properChoose > lowerMenu || properChoose < upperMenu);
     }
 
     public Solution add() throws MySQLIntegrityConstraintViolationException {
-        int id = 0;
         SolutionDao solutionDao = new SolutionDao();
         UserDao userDao = new UserDao();
         Scanner scanner = new Scanner(System.in);
         MenuText menuText = new MenuText();
         ExerciseDao exerciseDao = new ExerciseDao();
+
         System.out.println(menuText.solutionToUser());
         System.out.println(Arrays.toString(userDao.findAll()));
         System.out.println(menuText.solutionAddToUserId());
-        id = scanner.nextInt();
+
+        int userId = scanner.nextInt();
+        if (userId == 0) {
+            MenuSolution.main();
+        }
         System.out.println(menuText.solutionExerciseList());
         System.out.println(Arrays.toString(exerciseDao.findAll()));
-        if (id == 0) {
-            MenuSolution.main();
-        }
         System.out.println(menuText.solutionGetExerciseId());
+
         int exerciseId = scanner.nextInt();
-        if (id == 0) {
+        if (userId == 0) {
             MenuSolution.main();
         }
-        Solution solution = new Solution();
-        solution.setUserId(id);
-        solution.setExerciseId(exerciseId);
+        System.out.println(menuText.userPanelGetSolutionDesc());
+        String description = scanner.nextLine();
+        if (description.equals("0")) {
+            MenuSolution.main();
+        }
+        Solution solution = new Solution(userId, exerciseId, description);
         solutionDao.create(solution);
         if (solutionDao.exist(solution.getId())) {
             System.out.println(menuText.solutionCreateSucc());
@@ -92,6 +107,7 @@ public class MenuSolution {
             System.err.println(menuText.solutionCreateFail());
             return null;
         }
+
     }
 
     public String view() {
@@ -103,8 +119,7 @@ public class MenuSolution {
         if (id == 0) {
             MenuSolution.main();
         }
-        //todo zadania przypisane do danego usera
-        return Arrays.toString(solutionDao.findAllByUserId(id));
+        return String.valueOf(solutionDao.findAllByUserId(id));
 
     }
 }

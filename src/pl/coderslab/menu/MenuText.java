@@ -98,6 +98,7 @@ public class MenuText {
     /**
      * Error
      */
+    private static final String emailExist = "********* Mail already exist ********\n";
     private static final String idNoExist = "**********  ID do not exist: *********\n";
     private static final String tryAgain = "**********     Try again     *********\n";
     private static final String wrongValueTryAgain = "******* Wrong value. Try again *******\n";
@@ -324,6 +325,10 @@ public class MenuText {
 
     public String userNoIdError() {
         return new StringBuilder().append(starsAllMsg).append(userError).append(noUserId).append(starsAllMsg).toString();
+    }
+
+    public String userEmailExist() {
+        return new StringBuilder().append(starsAllMsg).append(userError).append(emailExist).append(starsAllMsg).toString();
     }
 
     public String userNoIdErrorBack() {

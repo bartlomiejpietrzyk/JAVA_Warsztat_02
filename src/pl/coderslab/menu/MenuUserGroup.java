@@ -95,6 +95,7 @@ public class MenuUserGroup {
         String name = scanner.nextLine();
         userGroup.setId(id);
         userGroup.setName(name);
+        userGroupDao.update(userGroup);
     }
 
     public void delete() {
@@ -109,29 +110,42 @@ public class MenuUserGroup {
                 System.out.println(menuText.userGroupDeleteConfirm());
                 int decision = scanner.nextInt();
                 while (scanner.hasNextLine()) {
-                    if (decision == 1) {
-                        userGroupDao.delete(id);
-                        if (userGroupDao.read(id) == null) {
-                            System.out.println(menuText.userGroupDeleteSucc());
+                    switch (decision) {
+                        case 1:
+                            userGroupDao.delete(id);
+                            if (userGroupDao.read(id) == null) {
+                                System.out.println(menuText.userGroupDeleteSucc());
+                                MenuUserGroup.main();
+                            } else {
+                                System.err.println(menuText.userGroupDeleteFail());
+                                MenuUserGroup.main();
+                            }
+                            break;
+                        case 2:
                             MenuUserGroup.main();
-                        } else {
-                            System.err.println(menuText.userGroupDeleteFail());
-                            MenuUserGroup.main();
-                        }
-                    } else if (decision == 2) {
-                        MenuUserGroup.main();
-                    } else {
-                        System.out.println(menuText.badTypeInsert());
+                            break;
+                        default:
+                            System.out.println(menuText.badTypeInsert());
+//                    if (decision == 1) {
+//                        userGroupDao.delete(id);
+//                        if (userGroupDao.read(id) == null) {
+//                            System.out.println(menuText.userGroupDeleteSucc());
+//                            MenuUserGroup.main();
+//                        } else {
+//                            System.err.println(menuText.userGroupDeleteFail());
+//                            MenuUserGroup.main();
+//                        }
+//                    } else if (decision == 2) {
+//                        MenuUserGroup.main();
+//                    } else {
+//                        System.out.println(menuText.badTypeInsert());
                     }
                 }
 
-            } else {
-                System.err.println(menuText.userGroupIdError());
-                continue;
-            }
-            if (id == 0) {
+            } else if (id == 0) {
                 MenuUserGroup.main();
             } else {
+                System.err.println(menuText.userGroupIdError());
                 continue;
             }
         }

@@ -8,19 +8,20 @@ import java.util.Arrays;
 
 public class UserGroupDao {
     private static final String CREATE_USER_GROUP_GROUP_QUERY =
-            "INSERT INTO userGroup_group(name) VALUES (?)";
+            "INSERT INTO user_group(name) VALUES (?)";
 
     private static final String READ_USER_GROUP_GROUP_QUERY =
-            "SELECT * FROM userGroup_group WHERE id = ?";
+            "SELECT * FROM user_group WHERE id = ?";
 
     private static final String UPDATE_USER_GROUP_QUERY =
-            "UPDATE userGroup_group SET name = ? WHERE id = ?";
+            "UPDATE user_group SET name = ? WHERE id = ?";
 
     private static final String DELETE_USER_GROUP_QUERY =
-            "DELETE FROM userGroup_group WHERE id = ?";
+            "DELETE FROM user_group WHERE id = ?";
 
     private static final String FIND_ALL_USER_GROUPS_QUERY =
-            "SELECT * FROM userGroup_group";
+            "SELECT * FROM user_group";
+    private int userGroupId;
 
     public UserGroup create(UserGroup userGroup) {
         try (Connection conn = DatabaseUtils.getConnection("java_warsztat_2")) {
@@ -55,6 +56,23 @@ public class UserGroupDao {
             e.printStackTrace();
         }
         return null;
+    }
+
+    public boolean exist(int userGroupId) {
+        try (Connection conn = DatabaseUtils.getConnection("java_warsztat_2")) {
+            PreparedStatement statement = conn.prepareStatement(READ_USER_GROUP_GROUP_QUERY);
+            statement.setInt(1, userGroupId);
+            ResultSet resultSet = statement.executeQuery();
+            if (resultSet.next()) {
+                UserGroup userGroup = new UserGroup();
+                userGroup.setId(resultSet.getInt("id"));
+                userGroup.setName(resultSet.getString("name"));
+                return true;
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return false;
     }
 
     public boolean created(int userGroupId) {

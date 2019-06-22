@@ -45,7 +45,7 @@ public class Exercise {
 
     @Override
     public String toString() {
-        return String.format("['Exercise' 'ID': '%s' ['Title: %s'] ['Description: %s']\n", id, title, description);
+        return String.format("['Exercise' 'ID': '%s'] ['Title: %s'] ['Description: %s']\n", id, title, description);
 
     }
 }
