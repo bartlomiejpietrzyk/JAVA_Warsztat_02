@@ -1,7 +1,6 @@
 package pl.coderslab.dao;
 
 import pl.coderslab.plain.Solution;
-import pl.coderslab.plain.User;
 import pl.coderslab.utils.DatabaseUtils;
 
 import java.sql.*;
@@ -126,6 +125,7 @@ public class SolutionDao {
                 solution.setUpdated(resultSet.getDate("updated"));
                 solution.setExerciseId(resultSet.getInt("exercise_id"));
                 solution.setUserId(resultSet.getInt("user_id"));
+                solution.setSolutionDescription(resultSet.getString("description"));
                 solutions = addToArray(solution, solutions);
             }
             return solutions;
@@ -139,6 +139,7 @@ public class SolutionDao {
         try (Connection conn = DatabaseUtils.getConnection("java_warsztat_2")) {
             Solution[] solutions = new Solution[0];
             PreparedStatement statement = conn.prepareStatement(FIND_ALL_SOLUTION_BY_EXERCISE_ID_QUERY);
+            statement.setInt(1, exerciseId);
             ResultSet resultSet = statement.executeQuery();
             while (resultSet.next()) {
                 Solution solution = new Solution();
@@ -147,6 +148,7 @@ public class SolutionDao {
                 solution.setUpdated(resultSet.getDate("updated"));
                 solution.setExerciseId(resultSet.getInt("exercise_id"));
                 solution.setUserId(resultSet.getInt("user_id"));
+                solution.setSolutionDescription(resultSet.getString("description"));
                 solutions = addToArray(solution, solutions);
             }
             return solutions;
@@ -157,10 +159,9 @@ public class SolutionDao {
     }
  public Solution[] findAllByUserId(int userId) {
         try (Connection conn = DatabaseUtils.getConnection("java_warsztat_2")) {
-            UserDao userDao =new UserDao();
-            User user = userDao.read(userId);
             Solution[] solutions = new Solution[0];
             PreparedStatement statement = conn.prepareStatement(FIND_ALL_SOLUTION_BY_USER_ID_QUERY);
+            statement.setInt(1, userId);
             ResultSet resultSet = statement.executeQuery();
             while (resultSet.next()) {
                 Solution solution = new Solution();
@@ -168,7 +169,8 @@ public class SolutionDao {
                 solution.setCreated(resultSet.getDate("created"));
                 solution.setUpdated(resultSet.getDate("updated"));
                 solution.setExerciseId(resultSet.getInt("exercise_id"));
-                user.setId(resultSet.getInt("id"));
+                solution.setUserId(resultSet.getInt("user_id"));
+                solution.setSolutionDescription(resultSet.getString("description"));
                 solutions = addToArray(solution, solutions);
             }
             return solutions;

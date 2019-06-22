@@ -38,7 +38,7 @@ public class UserPanel {
                         userPanel.add(userId);
                         break;
                     case 2:
-                        System.out.println(solutionDao.findAllByUserId(userId));
+                        System.out.println(Arrays.toString(solutionDao.findAllByUserId(userId)));
                         break;
                     case 3:
                         Main.main(null);
@@ -75,7 +75,7 @@ public class UserPanel {
             if (exerciseDao.exist(exerciseId)) {
                 System.out.println(menuText.userPanelGetSolutionDesc());
                 String description = scanner.nextLine();
-                solution.setId(userId);
+                solution.setUserId(userId);
                 solution.setExerciseId(exerciseId);
                 solution.setSolutionDescription(description);
                 solutionDao.create(solution);

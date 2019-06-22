@@ -6,24 +6,24 @@ public class MenuText {
      */
 
     private static final String menuExercise = "*********   Menu  Exercise:  *********\n";
-    private static final String exerciseMenuAdd = "****** 1. Add - dodaj zadanie    *****\n";
-    private static final String exerciseMenuEdit = "****** 2. Edit - edytuj zadanie  *****\n";
-    private static final String exerciseMenuDelete = "****** 3. Delete - usuń zadanie  *****\n";
-    private static final String exerciseMenuQuit = "****** 4. Quit -  Main menu      *****\n";
+    private static final String exerciseMenuAdd = "*** 1. Add - dodaj zadanie         ***\n";
+    private static final String exerciseMenuEdit = "*** 2. Edit - edytuj zadanie       ***\n";
+    private static final String exerciseMenuDelete = "*** 3. Delete - usuń zadanie       ***\n";
+    private static final String exerciseMenuQuit = "*** 4. Quit -  Main menu           ***\n";
 
     private static final String userMenuSolution = "***********  User  Solution: *********\n";
-    private static final String userSolutionMenuAdd = "*** 1. Add  - dodaj rozwiązanie ******\n************  do zadania        ******\n";
-    private static final String userSolutionMenuView = "*** 2. View - przegląj swoje    ******\n************  rozwiązania       ******\n";
-    private static final String userSolutionMenuQuit = "*** 3. Quit - Main menu         ******\n";
+    private static final String userSolutionMenuAdd = "*** 1. Add  - dodaj rozwiązanie    ***\n************  do zadania           ***\n";
+    private static final String userSolutionMenuView = "*** 2. View - przegląj swoje       ***\n************  rozwiązania          ***\n";
+    private static final String userSolutionMenuQuit = "*** 3. Quit - Main menu            ***\n";
 
     /**
      * Menu User Group
      */
     private static final String menuUserGroup = "*********  Menu  UserGroup:  *********\n";
-    private static final String menuUserGroupAdd = "**** 1. Add - dodaj grupę      *******\n";
-    private static final String menuUserGroupEdit = "**** 2. Edit - edycja grupy    *******\n";
-    private static final String menuUserGroupDelete = "**** 3. Delete - kasacja grupy *******\n";
-    private static final String menuUserGroupQuit = "**** 4. Quit - Main menu       *******\n";
+    private static final String menuUserGroupAdd = "*** 1. Add - dodaj grupę           ***\n";
+    private static final String menuUserGroupEdit = "*** 2. Edit - edycja grupy         ***\n";
+    private static final String menuUserGroupDelete = "*** 3. Delete - kasacja grupy      ***\n";
+    private static final String menuUserGroupQuit = "*** 4. Quit - Main menu            ***\n";
 
     /**
      * User menu
@@ -50,9 +50,9 @@ public class MenuText {
     private static final String programming = "*********** In programming ***********\n";
     private static final String school = "**************   School  *************\n";
     private static final String mainUserMenu = "**********  Main  User Menu:  ********\n";
-    private static final String userPanel = "****** 1. Panel Użytkownika     ******\n";
-    private static final String adminPanel = "****** 2. Panel Administracyjny ******\n";
-    private static final String mainUserMenuQuit = "****** 3. Quit - Zakończ        ******\n";
+    private static final String userPanel = "*** 1. Panel Użytkownika           ***\n";
+    private static final String adminPanel = "*** 2. Panel Administracyjny       ***\n";
+    private static final String mainUserMenuQuit = "*** 3. Quit - Zakończ aplikacje    ***\n";
 
     /**
      * Solution menu
@@ -60,15 +60,15 @@ public class MenuText {
     private static final String menuSolution = "***********  Menu  Solution: *********\n";
     private static final String menuSolutionAdd = "*** 1. Add - przypisz rozwiązanie  ***\n***********  do użytkownika        ***\n";
     private static final String menuSolutionView = "*** 2. View - przegląj rozwiązaia  ***\n";
-    private static final String menuSolutionQuit = "*** 3. Quit - Zakończenie programu ***\n";
+    private static final String menuSolutionQuit = "*** 3. Quit - Main menu            ***\n";
 
     private static final String writeYourId = "*********    Podaj swoje:   **********\n*********         ID        **********\n";
     private static final String getYourSolutions = "**** Przeglądaj swoje rozwiązania ****\n************** do zadań **************\n";
-    private static final String getId = "*********      Podaj ID     **********\n";
-    private static final String user = "*********     Użytkownika   **********\n";
-    private static final String exercise = "*********       Zadania     **********\n";
-    private static final String solution = "*********     Rozwiązania   **********\n";
-    private static final String group = "*********        Grupy      **********\n";
+    private static final String getId = "***********    Podaj ID     **********\n";
+    private static final String user = "***********   Użytkownika   **********\n";
+    private static final String exercise = "***********     Zadania     **********\n";
+    private static final String solution = "***********   Rozwiązania   **********\n";
+    private static final String group = "***********      Grupy      **********\n";
     /**
      * Basic Strings
      */
@@ -76,8 +76,8 @@ public class MenuText {
     private static final String failed = "*******        Failed         ********\n";
     private static final String starsAllMsg = "**************************************\n";
     private static final String starsLong = "***************************************************************\n";
-    private static final String writeIdAgain = "**********  Write ID again  **********\n";
-    private static final String zeroBackEng = "**********  Press 0 to back **********\n";
+    private static final String writeIdAgain = "**********  Write ID again    ********\n";
+    private static final String zeroBackEng = "**********  Press 0 to back   ********\n";
     private static final String zeroBackPl = "************* 0 = Wróć ***************\n";
     /**
      * User
@@ -116,10 +116,10 @@ public class MenuText {
      * No ID
      */
     private static final String userError = "***********    User Error:   *********\n";
-    private static final String userGroupError = "**********  UserGroup Error:   *******\n";
+    private static final String userGroupError = "**********  UserGroup Error:  ********\n";
     private static final String noExerciseId = "**********  No Exercise ID  **********\n";
     private static final String noUserId = "***********    No User ID    *********\n";
-    private static final String noUserGroupId = "**********  No UserGroup ID    *******\n";
+    private static final String noUserGroupId = "**********  No UserGroup ID   ********\n";
 
     /**
      * Create
