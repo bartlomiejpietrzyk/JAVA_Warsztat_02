@@ -45,7 +45,6 @@ public class MenuSolution {
                         }
                         break;
                     case 2:
-                        //todo
                         System.out.println(Arrays.toString(userDao.findAll()));
                         System.out.println(menuText.solutionView());
                         int userId = scanner.nextInt();
@@ -86,19 +85,14 @@ public class MenuSolution {
             MenuSolution.main();
         }
         System.out.println(menuText.solutionExerciseList());
+        scanner.nextLine();
         System.out.println(Arrays.toString(exerciseDao.findAll()));
         System.out.println(menuText.solutionGetExerciseId());
-
         int exerciseId = scanner.nextInt();
         if (userId == 0) {
             MenuSolution.main();
         }
-        System.out.println(menuText.userPanelGetSolutionDesc());
-        String description = scanner.nextLine();
-        if (description.equals("0")) {
-            MenuSolution.main();
-        }
-        Solution solution = new Solution(userId, exerciseId, description);
+        Solution solution = new Solution(userId, exerciseId);
         solutionDao.create(solution);
         if (solutionDao.exist(solution.getId())) {
             System.out.println(menuText.solutionCreateSucc());
@@ -107,7 +101,6 @@ public class MenuSolution {
             System.err.println(menuText.solutionCreateFail());
             return null;
         }
-
     }
 
     public String view() {

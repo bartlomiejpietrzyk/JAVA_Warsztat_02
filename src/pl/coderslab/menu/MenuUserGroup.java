@@ -15,10 +15,11 @@ public class MenuUserGroup {
         int properChoose = 0;
         AdminPanel adminPanel = new AdminPanel();
         MenuUserGroup menuUserGroup = new MenuUserGroup();
-        UserGroupDao userGroup = new UserGroupDao();
+        UserGroupDao userGroupDao = new UserGroupDao();
         MenuText menuText = new MenuText();
         do {
             try {
+                System.out.println(Arrays.toString(userGroupDao.findAll()));
                 System.out.println(menuText.userGroupWelcomeMenu());
                 Scanner scanner = new Scanner(System.in);
                 while (!scanner.hasNextInt()) {
@@ -37,11 +38,11 @@ public class MenuUserGroup {
                         menuUserGroup.add();
                         break;
                     case 2:
-                        System.out.println(Arrays.toString(userGroup.findAll()));
+                        System.out.println(Arrays.toString(userGroupDao.findAll()));
                         menuUserGroup.edit();
                         break;
                     case 3:
-                        System.out.println(Arrays.toString(userGroup.findAll()));
+                        System.out.println(Arrays.toString(userGroupDao.findAll()));
                         menuUserGroup.delete();
                         break;
                     case 4:

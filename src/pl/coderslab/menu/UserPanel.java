@@ -39,7 +39,7 @@ public class UserPanel {
                         break;
                     case 2:
                         System.out.println(Arrays.toString(solutionDao.findAllByUserId(userId)));
-                        break;
+                        continue;
                     case 3:
                         Main.main(null);
                     default:
@@ -65,7 +65,7 @@ public class UserPanel {
         Solution solution = new Solution();
         int exerciseId = 0;
         do {
-            System.out.println(Arrays.toString(exerciseDao.findAll()));
+            System.out.println(Arrays.toString(exerciseDao.findExerciseWithoutSolution(userId)));
             System.out.println(menuText.solutionGetExerciseId());
             exerciseId = scanner.nextInt();
             if (exerciseId == 0) {

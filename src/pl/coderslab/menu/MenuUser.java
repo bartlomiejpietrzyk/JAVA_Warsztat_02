@@ -18,9 +18,10 @@ public class MenuUser {
         AdminPanel adminPanel = new AdminPanel();
         MenuText menuText = new MenuText();
         MenuUser menuUser = new MenuUser();
-        UserDao user = new UserDao();
+        UserDao userDao = new UserDao();
         do {
             try {
+                System.out.println(Arrays.toString(userDao.findAll()));
                 System.out.println(menuText.userWelcomeMenu());
                 Scanner scanner = new Scanner(System.in);
                 while (!scanner.hasNextInt()) {
@@ -39,11 +40,11 @@ public class MenuUser {
                         menuUser.add();
                         break;
                     case 2:
-                        System.out.println(Arrays.toString(user.findAll()));
+                        System.out.println(Arrays.toString(userDao.findAll()));
                         menuUser.edit();
                         break;
                     case 3:
-                        System.out.println(Arrays.toString(user.findAll()));
+                        System.out.println(Arrays.toString(userDao.findAll()));
                         menuUser.delete();
                         break;
                     case 4:

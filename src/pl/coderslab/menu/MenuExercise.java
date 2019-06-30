@@ -16,8 +16,10 @@ public class MenuExercise {
         AdminPanel adminPanel = new AdminPanel();
         MenuText menuText = new MenuText();
         MenuExercise menuExercise = new MenuExercise();
+        ExerciseDao exerciseDao = new ExerciseDao();
         do {
             try {
+                System.out.println(Arrays.toString(exerciseDao.findAll()));
                 System.out.println(menuText.exerciseWelcomeMenu());
                 Scanner scanner = new Scanner(System.in);
                 while (!scanner.hasNextInt()) {

@@ -64,7 +64,8 @@ public class SolutionDao {
         }
         return null;
     }
- public boolean exist(int solutionId) {
+
+    public boolean exist(int solutionId) {
         try (Connection conn = DatabaseUtils.getConnection("java_warsztat_2")) {
             PreparedStatement statement = conn.prepareStatement(READ_SOLUTION_QUERY);
             statement.setInt(1, solutionId);
@@ -157,7 +158,9 @@ public class SolutionDao {
             return null;
         }
     }
- public Solution[] findAllByUserId(int userId) {
+
+
+    public Solution[] findAllByUserId(int userId) {
         try (Connection conn = DatabaseUtils.getConnection("java_warsztat_2")) {
             Solution[] solutions = new Solution[0];
             PreparedStatement statement = conn.prepareStatement(FIND_ALL_SOLUTION_BY_USER_ID_QUERY);
